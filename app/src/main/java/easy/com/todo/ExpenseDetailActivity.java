@@ -39,7 +39,6 @@ public class ExpenseDetailActivity extends AppCompatActivity {
 
     long epochtime=0l;
     String title,desc,dat,tim;
-    double pricing;
     EditText titleTextView,descriptionedittext, dateEdittext,timeedittext;
     ImageButton ib1,ib2,ib3,ib4;
     long date;

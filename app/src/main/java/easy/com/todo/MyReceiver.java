@@ -8,8 +8,9 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.provider.Settings;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class MyReceiver extends BroadcastReceiver {
@@ -21,10 +22,9 @@ public class MyReceiver extends BroadcastReceiver {
         Log.i("Receive","inside");
 
 
+final Context handlercontext=context;
 
-
-
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(context).setAutoCancel(false).setSmallIcon(android.R.drawable.btn_star)
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(context).setAutoCancel(true).setSmallIcon(android.R.drawable.btn_star)
                 .setContentTitle("Todo Alert !").setContentText("You have a task to be reviewed !");
 Intent result=new Intent(context,MainActivity.class);
        int id= intent.getIntExtra("ID1",-1);
@@ -33,12 +33,21 @@ Intent result=new Intent(context,MainActivity.class);
         builder.setContentIntent(pendingIntent);
         NotificationManager notificationManager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id,builder.build());
-        Intent i=new Intent(context,MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
-
         Uri ringtone= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-        Ringtone r=RingtoneManager.getRingtone(context,ringtone);
+      final  Ringtone r=RingtoneManager.getRingtone(handlercontext,ringtone);
+        r.play();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+               r.stop();
+            }
+        }, 15000);
+//        Intent i=new Intent(context,MainActivity.class);
+//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(i);
+
+
 //        Long timeatstop = System.currentTimeMillis()+6000;
 //        while(true)
 //        {
@@ -47,9 +56,11 @@ Intent result=new Intent(context,MainActivity.class);
 //                break;
 //            }
 //        }
-        r.play();
-        long end=System.currentTimeMillis()+3000;
-        while(System.currentTimeMillis()<end) ;
-        r.stop();
+
+//        long end=System.currentTimeMillis()+5000;
+//        while(System.currentTimeMillis()<end) ;
+
+
+
     }
 }

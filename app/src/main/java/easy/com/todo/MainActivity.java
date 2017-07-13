@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,15 +15,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -152,11 +147,11 @@ public class MainActivity extends AppCompatActivity {
                         });
                         View snackbar_view=s.getView();
                        TextView snackbar_text=(TextView) snackbar_view.findViewById(android.support.design.R.id.snackbar_text);
-                       // snackbar_text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.images1,0,0,0);
-                        snackbar_text.setGravity(Gravity.CENTER);
-                        snackbar_text.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                        snackbar_text.setTextColor(getResources().getColor(R.color.white));
-                        s.show();
+//                       // snackbar_text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.images1,0,0,0);
+//                        snackbar_text.setGravity(Gravity.CENTER);
+//                        snackbar_text.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        snackbar_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                       s.show();
 
 
                     }
@@ -265,73 +260,74 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-     if(R.id.remove == id){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-
-        builder.setTitle("Delete");
-        builder.setCancelable(false);
-//            builder.setMessage("Are you sure you want to delete ??");
-
-        View v = getLayoutInflater().inflate(R.layout.dialog_view2,null);
-
-        final TextView tv = (TextView) v.findViewById(R.id.dialogTextView);
-        tv.setText("Enter the title to be deleted ?");
-        edit=(EditText) v.findViewById(R.id.editview);
-        builder.setView(v);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String title=edit.getText().toString();
-                if(title.isEmpty())
-                {
-                    Toast.makeText(MainActivity.this,"Enter title first",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ExpenseOpenHelper expenseOpenHelper=new ExpenseOpenHelper(MainActivity.this);
-                SQLiteDatabase database=expenseOpenHelper.getReadableDatabase();
-                //   String[] abcd ={"'title'"};
-                database.delete(ExpenseOpenHelper.EXPENSE_TABLE_NAME,ExpenseOpenHelper.EXPENSE_TITLE+"="+"'"+title+"'",null);
-
-                int x=0;
-                ArrayList<Expense> list1=new ArrayList<>();
-                for(Expense i:expenseList)
-                {
-                    if(i.getTitle().equals(title))
-                    {
-                        list1.add(i);
-                        x++;
-                    }
-                }
-                expenseList.removeAll(list1);
-                if(x==0)
-                {
-                    Toast.makeText(MainActivity.this,"No such title",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this,title+" removed successfully",Toast.LENGTH_SHORT).show();
-                }
-
-
-
-                expenseListAdapter.notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }else if(id == R.id.aboutUs){
+//        //noinspection SimplifiableIfStatement
+//     if(R.id.remove == id){
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+//
+//        builder.setTitle("Delete");
+//        builder.setCancelable(false);
+////            builder.setMessage("Are you sure you want to delete ??");
+//
+//        View v = getLayoutInflater().inflate(R.layout.dialog_view2,null);
+//
+//        final TextView tv = (TextView) v.findViewById(R.id.dialogTextView);
+//        tv.setText("Enter the title to be deleted ?");
+//        edit=(EditText) v.findViewById(R.id.editview);
+//        builder.setView(v);
+//
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                String title=edit.getText().toString();
+//                if(title.isEmpty())
+//                {
+//                    Toast.makeText(MainActivity.this,"Enter title first",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                ExpenseOpenHelper expenseOpenHelper=new ExpenseOpenHelper(MainActivity.this);
+//                SQLiteDatabase database=expenseOpenHelper.getReadableDatabase();
+//                //   String[] abcd ={"'title'"};
+//                database.delete(ExpenseOpenHelper.EXPENSE_TABLE_NAME,ExpenseOpenHelper.EXPENSE_TITLE+"="+"'"+title+"'",null);
+//
+//                int x=0;
+//                ArrayList<Expense> list1=new ArrayList<>();
+//                for(Expense i:expenseList)
+//                {
+//                    if(i.getTitle().equals(title))
+//                    {
+//                        list1.add(i);
+//                        x++;
+//                    }
+//                }
+//                expenseList.removeAll(list1);
+//                if(x==0)
+//                {
+//                    Toast.makeText(MainActivity.this,"No such title",Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                {
+//                    Toast.makeText(MainActivity.this,title+" removed successfully",Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//
+//                expenseListAdapter.notifyDataSetChanged();
+//            }
+//        });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//
+//    }
+     if(id == R.id.aboutUs){
         Intent i = new Intent();
         i.setAction(Intent.ACTION_VIEW);
         Uri uri = Uri.parse("https://www.google.co.in");
@@ -341,13 +337,13 @@ public class MainActivity extends AppCompatActivity {
     }else if(id == R.id.contactUs){
         Intent i = new Intent();
         i.setAction(Intent.ACTION_CALL);
-        Uri uri = Uri.parse("tel:123345");
+        Uri uri = Uri.parse("tel:9876543210");
         i.setData(uri);
         startActivity(i);
     }else if(id == R.id.feedback){
         Intent i = new Intent();
         i.setAction(Intent.ACTION_SENDTO);
-        Uri uri = Uri.parse("mailto:manisha@codingninjas.in");
+        Uri uri = Uri.parse("mailto:lakshay15103046@gmail.com");
         i.putExtra(Intent.EXTRA_SUBJECT,"Feedback");
         i.setData(uri);
         if(i.resolveActivity(getPackageManager()) != null) {

@@ -10,7 +10,6 @@
         android:right="5dp"
         android:bottom="5dp"    >
     </padding>
-    <gradient android:startColor="#FFFFFFFF" android:endColor="#A4A4A4"
-        android:angle="270" />
-   <stroke android:color="#000"></stroke>
+   <stroke android:color="@color/colorAccent"
+       android:width="3px"></stroke>
 </shape>
